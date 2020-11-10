@@ -7,22 +7,56 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+byteorder = "*"
+nom = "*"
+clap_derive = "*"
+clap_generate = "*"
+indicatif="*"
+pbr = '*'
+term-table = "*"
+dialoguer="*"
+read_input = "*"
+argh = "*"
+num_cpus = "*"
+rand = { version = "*", default-features = false, features = ["serde", "small_rng"] }
+regex = "*"
+tabwriter = "*"
 dirs-next = "*"
+#directories = "*"
 thiserror="*"
 log = "*"
 env_logger = "*"
 git2 = "*"
 termcolor = "*"
+# clicolors-control = "*"
+chrono = { version = "*", features = ["serde"] }
+strsim = "*"
+ryu = "*"
 which = "*"
 serde = { version = "*", features = ["derive"] }
 tempdir = "*"
 filename = "*"
+filetime = "*"
 diff = "*"
+crossbeam-channel = "*"
+threadpool = "*"
+# derive_more = "*"
+# pest= "*"
+# html5ever = "*"
 
 [dependencies.clap]
-version = "2.31.2"
+version = "~3.0.0-beta.2"
+default-features = false
 features = ["suggestions", "color", "wrap_help"]
 
 [profile.release]
+opt-level = 3
 lto = true
 codegen_units = 1
+
+[profile.dev]
+debug = true
+
+[profile.test]
+debug = true
+opt-level = 3
