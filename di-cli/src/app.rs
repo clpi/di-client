@@ -1,3 +1,4 @@
+use directories::{UserDirs, BaseDirs};
 use crate::{
     config::DiConfig,
     cmd::{Div, RecordCmd, FieldCmd, TagCmd,   },
@@ -12,6 +13,7 @@ pub struct DivApp {
 impl DivApp {
 
     pub fn run() -> () {
+        log::info!("Running");
 
     }
 }
