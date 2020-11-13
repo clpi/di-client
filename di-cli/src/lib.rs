@@ -5,5 +5,13 @@ pub mod config;
 pub mod error;
 pub mod cmd;
 pub mod terminal;
+pub mod lex;
 
-pub use app::DiApp;
+pub use app::{
+    DivApp,
+};
+
+
+pub fn run() -> std::io::Result<()> {
+    // DivApp::run()?
+}

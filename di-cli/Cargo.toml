@@ -15,12 +15,11 @@ path = "src/bin/main.rs"
 
 
 [dependencies]
-parking_lot = "0.11.0"
 aho-corasick = "*"
-argh = "0.1.4"
-bstr = "*"
-ignore = "*"
-chrono = "*"
+anyhow = "*"
+clap_generate = "3.0.0-beta.2"
+ansi_colours = "*"
+chrono = { version = "*", features = ["serde"] }
 log = "0.4.8"
 chrono-english = "*"
 chrono-humanize = "0.0.*"
@@ -32,14 +31,51 @@ regex = "*"
 strsim = "*"
 notify = "*"
 nom = "*"
-combine = "*"
-pom = "*"
-lscolors = "*"
 rand = "*"
-directories = "*"
-petgraph = {version = "0.5.0", default-features = false, features = ["stable_graph"]}
+directories-next = "*"
 term_size = "*"
-time = "*"
+serde = { version = "*", features = ["derive"] }
+serde_json = "*"
+structopt = '*'
+toml = { version = "*", features = [ "preserve_order" ] }
+libc = "*"
+reqwest = { version = "*", features = [ "blocking", "json" ] }
+thiserror = "*"
+shellwords = "*"
+config = "*"
+unicode-width = "*"
+prettytable-rs = "*"
+which = "*"
+tokio = { version = "0.2", default-features = false, features = ["io-std", "time", "macros", "process", "signal", "sync"] }
+strum = { version = "0.19.2", features = ["derive"] }
+
+
+# ctrlc = "*"
+# termcolor = "*"
+# walkdir = "*"
+# comfy-table="*"
+# uuid = { version = "*", features = ["v4"] }
+# getopts = "*"
+# bitflags = "*"
+# lscolors = "*"
+# anyhow - "*"
+# toml = "*"
+# raw-tty = "*"
+# xdg = "*"
+# shell-words = "*"
+# bstr = "*"
+# time = "*"
+# combine = "*"
+# pom = "*"
+# ignore = "*"
+# petgraph = {version = "0.5.0", default-features = false, features = ["stable_graph"]}
+# parking_lot = "0.11.0"
+# prettytable-rs = "0.6.7"
+# argh = "0.1.4"
+# raw_tty="*"
+# strip-ansi-escapes="*"
+# term  ="*"
+# libc = "*"
 # users = "*"
 # term_grid = "8"
 # locale = "*"
@@ -47,7 +83,6 @@ time = "*"
 # scoped_threadpool = "*"
 # humansize = "*"
 # pretty-bytes = "*"
-# ansi_colours = "*"
 # terminal_size="*"
 # num-format = "*"
 # unicode-width = "*"
@@ -65,7 +100,6 @@ time = "*"
 # byteorder = "*"
 # app_dirs = "*"
 # regex_syntax = "*"
-# termcolor = "*"
 #time = "*"
 # rust_decimal = "1.8"
 
@@ -105,7 +139,6 @@ time = "*"
 # terminal-width = "*"
 # walkdir = "*"
 # syntect = "*"
-# tokio = { version = "^0.2", features = ["full"] }
 # tokio-util = { version = "^0.3", features = ["full"] }
 # thiserror="*"
 # textwrap = "0.12.1"
@@ -157,16 +190,15 @@ time = "*"
 # threadpool = "*"
 # derive_more = "*"
 # pest= "*"
-# getopts = "*"
 # html5ever = "*"
 # cssparser = "*"
 # crossbeam-utils = "*"
 # olored = "2.0"
 
 
-# [dependencies.clap]
-# version = "~3.0.0-beta.2"
-# features = ["suggestions", "color", "wrap_help"]
+[dependencies.clap]
+version = "~3.0.0-beta.2"
+features = ["suggestions", "color", "wrap_help"]
 
 [dev-dependencies]
 criterion = "0.3.3"

@@ -1,3 +1,7 @@
+pub fn test_fn() -> String {
+
+}
+
 #[cfg(test)]
 mod tests {
     #[test]

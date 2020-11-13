@@ -1,19 +1,15 @@
-use argh::FromArgs;
+use clap::{Arg, ArgEnum, App};
 
-
-#[derive(FromArgs, PartialEq, Debug)]
-/// Second subcommand.
-#[argh(subcommand, name = "record", description=" ")]
+#[derive(Clone)]
 pub struct RecordCmd {
-    #[argh(switch)]
-    /// whether to fooey
-    name: String,
-    #[argh(option)]
-    value: Option<String>,
-    #[argh(option)]
-    active: Option<bool>,
-    #[argh(option)]
-    add_item: Option<String>,
-    #[argh(option)]
-    del_item: Option<String>,
+    pub app: App<'static>,
+}
+
+impl RecordCmd {
+    pub fn new() -> Self {
+        Self {
+            app: App::new("record")
+                .short_flag("R".chars().nth(0).unwrap())
+        }
+    }
 }

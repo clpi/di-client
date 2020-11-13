@@ -1,32 +1,15 @@
-use directories::{UserDirs, BaseDirs};
+use ansi_colours::{AsRGB};
+use clap::{App, AppSettings, Arg, ArgSettings,};
+use directories_next::{UserDirs, BaseDirs};
 use crate::{
     config::DiConfig,
-    cmd::{Div, RecordCmd, FieldCmd, TagCmd,   },
+    cmd::{DivCmd, RecordCmd, FieldCmd, TagCmd, ItemCmd  },
 };
-use argh::FromArgs;
-
-pub struct DivApp {
-    cmd: Div,
-}
-
-
-impl DivApp {
-
-    pub fn run() -> () {
-        log::info!("Running");
-
-    }
-}
-
-    /* NOTE For using Clap
-use clap::{App, AppSettings, Arg, ArgSettings,};
 
 #[derive(Clone)]
-pub struct DiApp {
-    app: App<'static>,
-}
+pub struct DivApp{app: App<'static>}
 
-impl DiApp {
+impl DivApp {
 
     pub fn new () -> Self {
         log::info!("App starting up!");
@@ -35,13 +18,25 @@ impl DiApp {
             .version(conf.version)
             .author(conf.author)
             .about(conf.about)
-            .args(vec![
-                ItemCmd::arg(),
-                RecordCmd::arg(),
-                FieldCmd::arg(),
+            .subcommands(vec![
+                ItemCmd::new().app,
+                RecordCmd::new().app,
+                FieldCmd::new().app,
             ])
-            .subcommand(Self::init_stats());
-        Self{ app  }
+            .subcommand(Self::init_stats())
+            .arg(Arg::new("help")
+                .short("h".chars().next().unwrap())
+                .long("help")
+                .about("help"))
+            .arg(Arg::new("config")
+                .short("c".chars().last().unwrap())
+                .long("config").about("config"))
+            .setting(AppSettings::ColoredHelp);
+        Self{app}
+    }
+
+    fn handle_input(input: &str) -> () {
+        let input = shellwords::split(input).expect("Could not split input");
     }
 
     fn init_stats() -> App<'static> {
@@ -69,6 +64,6 @@ impl DiApp {
             } else { log::warn!("No debug") }
         }
     }
-    */
+
 }
 

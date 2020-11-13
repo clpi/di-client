@@ -1,19 +1,15 @@
+use clap::{Arg, ArgEnum, App};
 
-use argh::FromArgs;
-
-#[derive(FromArgs, PartialEq, Debug)]
-/// Second subcommand.
-#[argh(subcommand, name = "field", description=" ")]
+#[derive(Clone)]
 pub struct FieldCmd {
-    #[argh(switch)]
-    /// whether to fooey
-    name: String,
-    #[argh(option)]
-    value: Option<String>,
-    #[argh(option)]
-    field_type: Option<String>,
-    #[argh(option)]
-    active: Option<bool>,
-    #[argh(option)]
-    add_to_item: Option<String>,
+    pub app: App<'static>,
+}
+
+impl FieldCmd {
+    pub fn new() -> Self {
+        Self {
+            app: App::new("field")
+                .short_flag("F".chars().nth(0).unwrap())
+        }
+    }
 }
