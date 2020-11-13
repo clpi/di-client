@@ -3,7 +3,7 @@ use clap::{App, AppSettings, Arg, ArgSettings,};
 use directories_next::{UserDirs, BaseDirs};
 use crate::{
     config::DiConfig,
-    cmd::{DivCmd, RecordCmd, FieldCmd, TagCmd, ItemCmd  },
+    cmd::{DivCmd, RecordCmd, FieldCmd, TagCmd, ItemCmd, StatsCmd },
 };
 
 #[derive(Clone)]
@@ -14,25 +14,7 @@ impl DivApp {
     pub fn new () -> Self {
         log::info!("App starting up!");
         let conf = DiConfig::new();
-        let app = App::new("div")
-            .version(conf.version)
-            .author(conf.author)
-            .about(conf.about)
-            .subcommands(vec![
-                ItemCmd::new().app,
-                RecordCmd::new().app,
-                FieldCmd::new().app,
-            ])
-            .subcommand(Self::init_stats())
-            .arg(Arg::new("help")
-                .short("h".chars().next().unwrap())
-                .long("help")
-                .about("help"))
-            .arg(Arg::new("config")
-                .short("c".chars().last().unwrap())
-                .long("config").about("config"))
-            .setting(AppSettings::ColoredHelp);
-        Self{app}
+        let app = DivCmd::new().app;
     }
 
     fn handle_input(input: &str) -> () {
@@ -40,16 +22,7 @@ impl DivApp {
     }
 
     fn init_stats() -> App<'static> {
-        let stats = App::new("stats")
-            .version("0.0.1")
-            .args(vec![
-                Arg::new("test")
-                .short("t".chars().nth(0).unwrap())
-                .long("Test")
-                .about("Test")
-                .takes_value(true)
-            ]);
-        stats
+        let stats =         stats
     }
 
     pub fn run(self) {

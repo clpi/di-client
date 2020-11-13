@@ -3,6 +3,9 @@ pub mod field;
 pub mod record;
 pub mod tag;
 pub mod link;
+pub mod stats;
+
+use clap::{App, Arg};
 
 pub use self::{
     field::FieldCmd,
@@ -10,6 +13,7 @@ pub use self::{
     record::RecordCmd,
     link::LinkCmd,
     tag::TagCmd,
+    stats::StatsCmd,
 };
 
 
@@ -20,12 +24,35 @@ pub trait Cmd {
 
 /// Top-level command.
 pub struct DivCmd {
+    app: App<'static>,
 }
 
 impl DivCmd {
 
-    pub fn invoke(input: &str) -> DivCmd {
+    pub fn new() -> Self {
+        Self {
+            app: App::new("div")
+            .version(conf.version)
+            .author(conf.author)
+            .about(conf.about)
+            .subcommands(vec![
+                ItemCmd::new().app,
+                RecordCmd::new().app,
+                FieldCmd::new().app,
+            ])
+            .subcommand(Self::init_stats())
+            .arg(Arg::new("help")
+                .short("h".chars().next().unwrap())
+                .long("help")
+                .about("help"))
+            .arg(Arg::new("config")
+                .short("c".chars().last().unwrap())
+                .long("config").about("config"))
+            .setting(AppSettings::ColoredHelp)
+        }
+    }
+
+    pub fn invoke(input: &str) -> () {
         let input = shellwords::split(input).expect("Could not split input");
-        DivCmd {  }
     }
 }
