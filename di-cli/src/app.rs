@@ -1,10 +1,8 @@
 use ansi_colours::{AsRGB};
-use clap::{App, AppSettings, Arg, ArgSettings,};
-use directories_next::{UserDirs, BaseDirs};
-use crate::{
-    config::DiConfig,
-    cmd::{DivCmd, RecordCmd, FieldCmd, TagCmd, ItemCmd, StatsCmd },
-};
+use clap::App;
+
+
+use crate::{ config::DiConfig, cmd, };
 
 #[derive(Clone)]
 pub struct DivApp{app: App<'static>}
@@ -14,17 +12,12 @@ impl DivApp {
     pub fn new () -> Self {
         log::info!("App starting up!");
         let _conf = DiConfig::new();
-        let app = DivCmd::new().app;
+        let app = cmd::Div::new().app;
         Self { app }
     }
 
     fn _handle_input(input: &str) -> () {
         let _input = shellwords::split(input).expect("Could not split input");
-    }
-
-    fn _init_stats() -> App<'static> {
-        let stats = StatsCmd::new().app;
-        stats
     }
 
     pub fn run(self) {

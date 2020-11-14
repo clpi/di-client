@@ -1,4 +1,7 @@
+pub trait Item {
 
-pub struct Item {
+}
+
+pub struct ItemEntry {
 
 }

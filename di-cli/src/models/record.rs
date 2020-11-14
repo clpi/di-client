@@ -1,4 +1,7 @@
+pub trait Record {
 
-pub struct Record {
+}
+
+pub struct RecordEntry {
 
 }

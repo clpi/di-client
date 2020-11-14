@@ -1,4 +1,7 @@
+pub trait Field {
 
-pub struct Field {
+}
+
+pub struct FieldEntry {
 
 }

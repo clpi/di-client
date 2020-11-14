@@ -1,15 +1,8 @@
+use chrono::{DateTime, Utc};
 use clap::{Arg, ArgEnum, App};
 
-#[derive(Clone)]
-pub struct FieldCmd {
-    pub app: App<'static>,
-}
-
-impl FieldCmd {
-    pub fn new() -> Self {
-        Self {
-            app: App::new("field")
-                .short_flag("F".chars().nth(0).unwrap())
-        }
-    }
+pub fn new() -> App<'static> {
+    App::new("field")
+        .short_flag("F".chars().nth(0).unwrap())
+        .about("Define a new field or update an exisitng field")
 }

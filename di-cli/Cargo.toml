@@ -45,10 +45,9 @@ config = "*"
 unicode-width = "*"
 prettytable-rs = "*"
 tokio = { version = "0.2", default-features = false, features = ["io-std", "time", "macros", "process", "signal", "sync"] }
-# structopt = { version = "0.3", features = [ "paw" ] }
+structopt = "*"
 # strum = { version = "0.19.2", features = ["derive"] }
 # which = "*"
-# structopt = '*'
 # ctrlc = "*"
 # termcolor = "*"
 # walkdir = "*"
@@ -61,9 +60,7 @@ tokio = { version = "0.2", default-features = false, features = ["io-std", "time
 # toml = "*"
 # raw-tty = "*"
 # xdg = "*"
-# shell-words = "*"
 # bstr = "*"
-# time = "*"
 # combine = "*"
 # pom = "*"
 # ignore = "*"
@@ -76,37 +73,28 @@ tokio = { version = "0.2", default-features = false, features = ["io-std", "time
 # term  ="*"
 # libc = "*"
 # users = "*"
-# term_grid = "8"
 # locale = "*"
 # natord = "*"
 # scoped_threadpool = "*"
 # humansize = "*"
 # pretty-bytes = "*"
-# terminal_size="*"
 # num-format = "*"
 # unicode-width = "*"
 # statrs = "*"
 # futures = "0.3"
 # async-std = { version = "*", features = ["attributes"] }
 # git2 = "*"
-#srtparse = "0.2.0"
-
-# directories = "*"
+# srtparse = "0.2.0"
 # term_grid = "0.1.*"
-
 # tempfile = "*"
 # tiny_http = "*"
 # byteorder = "*"
 # app_dirs = "*"
 # regex_syntax = "*"
-#time = "*"
-# rust_decimal = "1.8"
-
 # rayon = "*"
 # futures-timer = "3.0.2"
 # futures = { version = "0.3", features = ["async-await"] }
 # timer = "*"
-# app_dirs = "*"
 # syntect = "*"
 # error-chain = "*"
 # unicode-segmentation = "*"
@@ -124,7 +112,7 @@ tokio = { version = "0.2", default-features = false, features = ["io-std", "time
 # rust-stemmers = "1.2.0"
 # whatlang = "0.11.0"
 # base64 = "*"
-#glob = "*"
+# glob = "*"
 # lalrpop = "*"
 # phonenumber ="*"
 # shlex = "*"
@@ -132,21 +120,14 @@ tokio = { version = "0.2", default-features = false, features = ["io-std", "time
 # mailparse = "*"
 # nom_locate = "*"
 # urlocator = "*"
-# term_size = "*"
 # term = "*"
-# terminal-size = "*"
-# terminal-width = "*"
-# walkdir = "*"
 # syntect = "*"
 # tokio-util = { version = "^0.3", features = ["full"] }
-# thiserror="*"
-# textwrap = "0.12.1"
 # humantime = "2.0.1"
 # colored = "*"
 # strum = "*"
 # strum_macros = "*"
 # logos = "*"
-
 # parse_duration = "2.1.0"
 # unescape = "0.1.0"
 #serde_humantime = "*"
@@ -154,7 +135,6 @@ tokio = { version = "0.2", default-features = false, features = ["io-std", "time
 #cohvert_case = "*"
 # twoway = "*"
 # clap_derive = "*"
-# clap_generate = "*"
 # pbr = '*'
 # term-table = "*"
 # dialoguer="*"
@@ -179,10 +159,8 @@ tokio = { version = "0.2", default-features = false, features = ["io-std", "time
 # uom = "*"
 # indexmap = "*"
 # num = "*"
-# structopt = "*"
 # structopt-derive = "*"
 # crossterm = "*"
-# console = "*"
 # tinyvec = "*" #no std
 # indexmap = "*"
 # crossbeam-channel = "*"
@@ -192,12 +170,10 @@ tokio = { version = "0.2", default-features = false, features = ["io-std", "time
 # html5ever = "*"
 # cssparser = "*"
 # crossbeam-utils = "*"
-# olored = "2.0"
-
 
 [dependencies.clap]
 version = "~3.0.0-beta.2"
-features = ["suggestions", "color", "wrap_help"]
+features = ["suggestions", "color", "wrap_help" ]
 
 [dev-dependencies]
 criterion = "0.3.3"
@@ -205,6 +181,8 @@ pretty_assertions = "*"
 pretty_env_logger = "*"
 assert_cmd = "*"
 assert_fs = "*"
+
+# [build-dependencies]
 
 [profile.release]
 opt-level = 3
