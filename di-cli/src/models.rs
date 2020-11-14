@@ -9,8 +9,6 @@ pub use self::{
     field::Field,
     item::Item,
     record::Record,
-    link::Link,
-    tag::Tag,
     types::{Status, Visibility, Priority,},
 };
 

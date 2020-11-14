@@ -36,7 +36,6 @@ directories-next = "*"
 term_size = "*"
 serde = { version = "*", features = ["derive"] }
 serde_json = "*"
-structopt = '*'
 toml = { version = "*", features = [ "preserve_order" ] }
 libc = "*"
 reqwest = { version = "*", features = [ "blocking", "json" ] }
@@ -45,11 +44,11 @@ shellwords = "*"
 config = "*"
 unicode-width = "*"
 prettytable-rs = "*"
-which = "*"
 tokio = { version = "0.2", default-features = false, features = ["io-std", "time", "macros", "process", "signal", "sync"] }
-strum = { version = "0.19.2", features = ["derive"] }
-
-
+# structopt = { version = "0.3", features = [ "paw" ] }
+# strum = { version = "0.19.2", features = ["derive"] }
+# which = "*"
+# structopt = '*'
 # ctrlc = "*"
 # termcolor = "*"
 # walkdir = "*"

@@ -13,16 +13,18 @@ impl DivApp {
 
     pub fn new () -> Self {
         log::info!("App starting up!");
-        let conf = DiConfig::new();
+        let _conf = DiConfig::new();
         let app = DivCmd::new().app;
+        Self { app }
     }
 
-    fn handle_input(input: &str) -> () {
-        let input = shellwords::split(input).expect("Could not split input");
+    fn _handle_input(input: &str) -> () {
+        let _input = shellwords::split(input).expect("Could not split input");
     }
 
-    fn init_stats() -> App<'static> {
-        let stats =         stats
+    fn _init_stats() -> App<'static> {
+        let stats = StatsCmd::new().app;
+        stats
     }
 
     pub fn run(self) {
@@ -37,6 +39,5 @@ impl DivApp {
             } else { log::warn!("No debug") }
         }
     }
-
 }
 

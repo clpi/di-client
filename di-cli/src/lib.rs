@@ -14,4 +14,5 @@ pub use app::{
 
 pub fn run() -> std::io::Result<()> {
     // DivApp::run()?
+    Ok(())
 }

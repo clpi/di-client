@@ -1,7 +1,7 @@
-use app::DiApp;
+use divcli::app::DivApp;
 
 fn main() {
     std::env::set_var("RUST_LOG", "trace cargo run");
-    let app = DiApp::new();
+    let app = DivApp::new();
     app.run();
 }

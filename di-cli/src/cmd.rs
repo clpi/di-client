@@ -5,7 +5,8 @@ pub mod tag;
 pub mod link;
 pub mod stats;
 
-use clap::{App, Arg};
+use clap::{App, Arg, AppSettings};
+use crate::config::DiConfig;
 
 pub use self::{
     field::FieldCmd,
@@ -24,12 +25,13 @@ pub trait Cmd {
 
 /// Top-level command.
 pub struct DivCmd {
-    app: App<'static>,
+    pub app: App<'static>,
 }
 
 impl DivCmd {
 
     pub fn new() -> Self {
+        let conf = DiConfig::new();
         Self {
             app: App::new("div")
             .version(conf.version)
@@ -40,7 +42,7 @@ impl DivCmd {
                 RecordCmd::new().app,
                 FieldCmd::new().app,
             ])
-            .subcommand(Self::init_stats())
+            .subcommand(StatsCmd::new().app)
             .arg(Arg::new("help")
                 .short("h".chars().next().unwrap())
                 .long("help")

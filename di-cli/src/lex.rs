@@ -6,6 +6,8 @@ pub struct Parser {
     rules: Vec<Rule>,
 }
 
+pub struct Rule {}
+
 pub enum Element {
     Whitespace,
 }
