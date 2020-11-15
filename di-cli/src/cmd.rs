@@ -6,12 +6,35 @@ pub mod link;
 pub mod stats;
 pub mod user;
 
-use clap::{App, Arg, AppSettings};
-use crate::config::DiConfig;
+use clap::Clap;
+use clap::{App, Arg, AppSettings, Subcommand};
+use crate::config::Config;
 
-pub trait Cmd {
-    fn help_string() -> String;
-    fn match_sub(input: &str) -> ();
+pub use self::{
+    record::RecordCmd,
+    item::ItemCmd,
+    field::FieldCmd,
+};
+
+#[derive(Clap, Debug)]
+pub struct DivCmd {
+    #[clap(subcommand)]
+    pub record: DivOpts,
+    pub item: String,
+    pub field: String,
+
+    pub user: String,
+}
+
+
+#[derive(Clap, Debug)]
+pub enum DivOpts {
+    #[clap(name="record", alias="r", arg_enum)]
+    Record(RecordCmd),
+    #[clap(name="item", alias="i", arg_enum)]
+    Item(ItemCmd),
+    #[clap(name="field", alias="f", arg_enum)]
+    Field(FieldCmd),
 }
 
 /// Top-level command.
@@ -21,14 +44,14 @@ pub struct Div {
 
 impl Div {
 
-    pub fn new() -> Self {
-        let conf = DiConfig::new();
+pub fn new() -> Self {
+        let config = Config::new();
         Self {
-            app: App::new("div")
+            app: App::new(clap::crate_name!())
                 .bin_name("div")
-                .version(conf.version)
-                .author(conf.author)
-                .about(conf.about)
+                .version(clap::crate_version!())
+                .author(clap::crate_authors!())
+                .about(clap::crate_description!())
                 .subcommands(vec![
                     item::new(),
                     record::new(),
@@ -60,3 +83,9 @@ impl Div {
             .about("help")
     }
 }
+
+pub trait Cmd {
+    fn help_string() -> String;
+    fn match_sub(input: &str) -> ();
+}
+

@@ -2,7 +2,7 @@ use ansi_colours::{AsRGB};
 use clap::App;
 
 
-use crate::{ config::DiConfig, cmd, };
+use crate::{ config::Config, cmd, };
 
 #[derive(Clone)]
 pub struct DivApp{app: App<'static>}
@@ -11,7 +11,6 @@ impl DivApp {
 
     pub fn new () -> Self {
         log::info!("App starting up!");
-        let _conf = DiConfig::new();
         let app = cmd::Div::new().app;
         Self { app }
     }

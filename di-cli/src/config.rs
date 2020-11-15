@@ -1,20 +1,15 @@
+use serde::{Serialize, Deserialize};
 
+#[derive(Clone, Debug)]
+pub struct Config {
 
-#[derive(Clone)]
-pub struct DiConfig {
-    pub name: &'static str,
-    pub version: &'static str,
-    pub author: &'static str,
-    pub about: &'static str,
 }
 
-impl DiConfig {
+impl Config {
+
     pub fn new() -> Self {
         Self {
-            name: "di",
-            version: "0.0.1",
-            author: "me",
-            about: " ",
+
         }
     }
 }

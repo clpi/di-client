@@ -1,6 +1,13 @@
 use chrono::{DateTime, Utc};
-use clap::{App, Arg, ArgEnum};
+use clap::{Clap, App, Arg, ArgEnum};
 
+#[derive(Clap, Debug)]
+pub struct ItemCmd {
+    name: String,
+    value: Option<String>
+}
+
+/// Item subcommand
 pub fn new() -> App<'static> {
     App::new("item")
         .short_flag("I".chars().nth(0).unwrap())
