@@ -32,7 +32,7 @@ strsim = "*"
 notify = "*"
 nom = "*"
 rand = "*"
-directories-next = "*"
+dirs-next = "*"
 term_size = "*"
 serde = { version = "*", features = ["derive"] }
 serde_json = "*"

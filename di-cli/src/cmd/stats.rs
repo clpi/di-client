@@ -1,4 +1,20 @@
-use clap::{App, Arg};
+use clap::{Clap, App, Arg};
+
+#[derive(Clap, Debug)]
+pub struct StatsCmd {
+    #[clap(
+        long="name",
+        short='n',
+        about="Name of the tag (tag key)"
+    )]
+    name: String,
+    #[clap(
+        long="value",
+        short='v',
+        about="Optional value of the tag (tag value)"
+    )]
+    value: Option<String>,
+}
 
 pub fn new() -> App<'static> {
         App::new("stats")

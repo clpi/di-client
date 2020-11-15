@@ -15,6 +15,10 @@ impl DivApp {
         Self { app }
     }
 
+    pub fn init() -> Self {
+        Self { app: App::new("") }
+    }
+
     fn _handle_input(input: &str) -> () {
         let _input = shellwords::split(input).expect("Could not split input");
     }
@@ -30,6 +34,10 @@ impl DivApp {
                 log::info!("Debug present");
             } else { log::warn!("No debug") }
         }
+    }
+
+    pub fn get_matches(self) {
+
     }
 }
 

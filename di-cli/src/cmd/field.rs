@@ -4,9 +4,17 @@ use clap::{Clap, App, Arg, ArgEnum};
 
 #[derive(Clap, Debug)]
 pub struct FieldCmd {
-    #[clap(long="name", about="name of field")]
+    #[clap(
+        long="name",
+        short='n',
+        about="name of field"
+    )]
     name: String,
-    #[clap(long="name", about="Optional value of field")]
+    #[clap(
+        long="value",
+        short='v',
+        about="Optional value of field"
+    )]
     value: Option<String>,
     #[clap(
         long="type",
@@ -18,7 +26,7 @@ pub struct FieldCmd {
 
 pub fn new() -> App<'static> {
     App::new("field")
-        .short_flag("F".chars().nth(0).unwrap())
+        .short_flag('F')
         .about("Define a new field or update an exisitng field")
 }
 
@@ -40,7 +48,9 @@ impl Default for FieldType {
 }
 
 impl FromStr for FieldType {
-    type Err = std::str::Utf8Error;
+
+    type Err = &'static str;
+
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s {
             "text" => Ok(FieldType::Text),

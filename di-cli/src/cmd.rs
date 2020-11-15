@@ -5,25 +5,36 @@ pub mod tag;
 pub mod link;
 pub mod stats;
 pub mod user;
+pub mod config;
 
 use clap::Clap;
-use clap::{App, Arg, AppSettings, Subcommand};
+use clap::{App, Arg, AppSettings, };
 use crate::config::Config;
 
 pub use self::{
     record::RecordCmd,
     item::ItemCmd,
     field::FieldCmd,
+    tag::TagCmd,
+    config::ConfigCmd,
+    stats::StatsCmd,
 };
 
+/// Top level command
 #[derive(Clap, Debug)]
+#[clap(
+    name = "clap::crate_name!",
+    version = "clap::crate_version!",
+    author = "clap::crate_authors!",
+    about = "clap::crate_description!",
+)]
 pub struct DivCmd {
+    /// Resource commands for Div
     #[clap(subcommand)]
-    pub record: DivOpts,
-    pub item: String,
-    pub field: String,
-
-    pub user: String,
+    pub opts: DivOpts,
+    /// Verbose output
+    #[clap(long)]
+    pub verbose: bool,
 }
 
 
@@ -35,6 +46,12 @@ pub enum DivOpts {
     Item(ItemCmd),
     #[clap(name="field", alias="f", arg_enum)]
     Field(FieldCmd),
+    #[clap(name="tag", alias="t", arg_enum)]
+    Tag(TagCmd),
+    #[clap(name="config", alias="c", arg_enum)]
+    Config(ConfigCmd),
+    #[clap(name="stats", alias="s", arg_enum)]
+    Stats(StatsCmd),
 }
 
 /// Top-level command.

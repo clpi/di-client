@@ -1,16 +1,26 @@
 use chrono::{DateTime, Utc};
 use clap::{Clap, App, Arg, ArgEnum};
 
-#[derive(Clap, Debug)]
+#[derive(Clap, Debug, PartialEq)]
 pub struct ItemCmd {
+    #[clap(
+        long="name",
+        short='n',
+        about="name of item"
+    )]
     name: String,
-    value: Option<String>
+    #[clap(
+        long="value",
+        short='v',
+        about="Optional value of item"
+    )]
+    value: Option<String>,
 }
 
 /// Item subcommand
 pub fn new() -> App<'static> {
     App::new("item")
-        .short_flag("I".chars().nth(0).unwrap())
+        .short_flag('I')
         .about("Define a new item or update an exisitng item")
         .args(vec![
             delete(),
@@ -19,7 +29,7 @@ pub fn new() -> App<'static> {
 
 pub fn delete() -> Arg<'static> {
     Arg::new("delete")
-        .short("d".chars().nth(0).unwrap())
+        .short('d')
         .about("Delete item from memory")
 }
 
