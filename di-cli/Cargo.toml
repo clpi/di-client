@@ -45,7 +45,6 @@ config = "*"
 unicode-width = "*"
 prettytable-rs = "*"
 tokio = { version = "0.2", default-features = false, features = ["io-std", "time", "macros", "process", "signal", "sync"] }
-structopt = "*"
 # confy = "*"
 # strum = { version = "0.19.2", features = ["derive"] }
 # which = "*"

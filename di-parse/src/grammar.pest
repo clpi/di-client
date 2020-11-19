@@ -1,0 +1,175 @@
+ WHITESPACE = _{ " " | "\t" | "\r" | "\n" }
+int   = @{ "-" ? ~ ("0" | '1'..'9' ~ '0'..'9' * ) }
+float = @{
+    "-" ? ~
+    (
+        "0" ~ "." ~ '0'..'9' + |
+        '1'..'9' ~ '0'..'9' * ~ "." ~ '0'..'9' +
+    )
+}
+bool_true = { "true" | "True" }
+bool_false = { "false" | "False" }
+boolean = _{ bool_true | bool_false }
+parens = @{
+    "(" ~ ")"
+}
+
+not = @{ "not" ~ WHITESPACE }
+or = @{ "or" ~ WHITESPACE }
+and = @{ "and" ~ WHITESPACE }
+
+pronoun = _{ i | me | he | him | she | her | they | them }
+pronoun_subj_sing = { i | he | she }
+pronoun_subj_plur = { they }
+pronoun_obj_sing = { me | him | her }
+pronoun_obj_plur = { them }
+pronoun_subj = _{ i | he | she | they }
+pronoun_obj = _{ me | him | her | them }
+i = @{"i" ~ WHITESPACE}
+me = @{"me" ~ WHITESPACE}
+he = @{"he" ~ WHITESPACE}
+him = @{"him" ~ WHITESPACE}
+she = @{"she" ~ WHITESPACE}
+her = @{"her" ~ WHITESPACE}
+they = @{"they" ~ WHITESPACE}
+them = @{"them" ~ WHITESPACE}
+
+// infinitive: be, see, write, do
+// present: is/am/are, sees, does,
+// past: was were did
+// past participle: been, done, seen
+// present participle: being, seing, writing, doing
+
+aux_verb_sing_pr = _{ is | am | has | have | can | shall | will }
+aux_verb_sing_pt = _{ was | had | could | should | would }
+aux_verb_plur_pr = _{ are | have | will | can | shall }
+aux_verb_plur_pt = _{ were | could | would | have | should }
+aux_verb_plur_fu = _{ will | can  | shall }
+aux_pt = _{ aux_verb_plur_pt | aux_verb_sing_pt }
+aux_pr = _{ aux_verb_sing_pr | aux_verb_plur_pr }
+aux = _{ aux_pt | aux_pr }
+// 24 /modals
+is = @{ "is" ~ WHITESPACE }
+am = @{ "am" ~ WHITESPACE }
+are = @{ "are" ~ WHITESPACE }
+was = @{ "was" ~ WHITESPACE }
+were = @{ "were" ~ WHITESPACE }
+has = @{ "has" ~ WHITESPACE }
+had = @{ "had" ~ WHITESPACE }
+have = @{ "have" ~ WHITESPACE }
+will = @{ "will" ~ WHITESPACE }
+would = @{ "would" ~ WHITESPACE }
+may = @{ "will" ~ WHITESPACE }
+might = @{ "would" ~ WHITESPACE }
+must = @{ "will" ~ WHITESPACE }
+ought = @{ "would" ~ WHITESPACE }
+_do = @{ "would" ~ WHITESPACE }
+does = @{ "would" ~ WHITESPACE }
+did = @{ "would" ~ WHITESPACE }
+_use = @{ "would" ~ WHITESPACE }
+used = @{ "would" ~ WHITESPACE }
+dare = @{ "would" ~ WHITESPACE }
+need = @{ "would" ~ WHITESPACE }
+needed = @{ "would" ~ WHITESPACE }
+can = @{ "can" ~ WHITESPACE }
+could = @{ "could" ~ WHITESPACE }
+shall = @{ "shall" ~ WHITESPACE }
+should = @{ "should" ~ WHITESPACE }
+hasbeen = @{ "has been" ~ WHITESPACE }
+
+verb = _{ "go" | "look" | "see" }
+prog_verb = @{ verb ~ "ing" ~ WHITESPACE }
+
+expr_sing_pt = { pronoun ~ aux_verb_sing_pr ~ prog_verb }
+
+preposition = _{to | at }
+
+to = @{"to" ~ WHITESPACE}
+at = @{"at" ~ WHITESPACE}
+from = @{"from" ~ WHITESPACE}
+
+_if = @{"if" ~ WHITESPACE}
+_when = @{"when" ~ WHITESPACE}
+_while = @{"while" ~ WHITESPACE}
+
+char = { ASCII_ALPHANUMERIC | "." | "_" | "/" }
+name = { char+ }
+word = { WHITESPACE ~ char+ ~ WHITESPACE }
+value = { char* }
+expr_subj = {
+    pronoun_subj ~ WHITESPACE
+    ~ ( aux_verb_sing_pr | aux_verb_plur_pr )
+    ~ WHITESPACE ~ value
+}
+expr_subj_obj = {
+    pronoun_subj ~ WHITESPACE
+    ~ ( aux_verb_sing_pr | aux_verb_plur_pr )
+    ~ WHITESPACE ~ pronoun_obj
+}
+expr_pt_subj = {
+    pronoun_subj ~ WHITESPACE
+    ~ ( aux_verb_sing_pt | aux_verb_plur_pt )
+    ~ WHITESPACE ~ value
+}
+expr_pt_subj_obj = {
+    pronoun_subj ~ WHITESPACE
+    ~ ( aux_verb_sing_pt | aux_verb_plur_pt )
+    ~ WHITESPACE ~ pronoun_obj
+}
+expr_pt = _{ expr_pt_subj | expr_pt_subj_obj }
+expr_pr = _{expr_subj | expr_subj_obj}
+expr = _{expr_pt | expr_pr}
+comma_break = { expr ~ WHITESPACE ~ "," ~ WHITESPACE }
+sentence = _{ expr ~ WHITESPACE ~ "." ~ WHITESPACE }
+file = {
+    SOI ~
+    (comma_break | sentence)* ~
+    EOI
+}
+
+item = { WHITESPACE }
+record = { WHITESPACE }
+field = { WHITESPACE }
+
+
+
+
+// neg_mod = @{ ("'nt" | "nt" | (WHITESPACE ~ not) ) ~ WHITESPACE }o
+// pt_mod = @{ ("a" | "'ve" | "ve" | (WHITESPACE ~ have)) ~ WHITESPACE }
+
+// oneg_basic = @{
+    // _( not | or | and | is | has | have | had | can | was | will ) ~
+    // nt_neg
+// }
+
+// iseq = { "=" }
+// eq = { "==" }
+// ineq = { "!=" }
+// bar = { "|" }
+// slash = { "/" }
+// plus = { "+" }
+// minus = { "-" }
+// times = { "*" }
+// lt = { "<" }
+// gt = { ">" }
+// lte = {"<="}
+// gte = { ">=" }
+//
+// comp_val = _{ plus | minus | slash | times }
+// comp_op = _{ eq | nieq | lt | gt | lte | gte }
+// comp = _{ comp_val | comp_op }
+//
+// gen_verb = { comp | verb }
+//
+//
+// // all_chars = _{'a'..'z' | 'A'..'Z' | "_" | '0'..'9'}
+// ident = @{
+    // ('a'..'z' | 'A'..'Z' | "_") ~
+    // all_chars*
+// }
+//
+// // in_cond_container = {string_expr_filter | array_filter | dotted_square_bracket_ident}
+// // in_cond = !{ (string_expr_filter | basic_expr_filter) ~ op_not? ~ "in" ~ in_cond_container }
+
+// logic_val  = !{ op_not? ~ (in_cond | comparison_expr) }
+// logic_expr = !{ logic_val ~ ((op_or | op_and) ~ logic_val)* }

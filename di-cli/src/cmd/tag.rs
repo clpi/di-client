@@ -40,7 +40,6 @@ impl TagCmd {
     pub fn new_app() -> App<'static> {
         return App::new("tag")
             .about("Tag an resource with a key and (optional) value pair")
-            .short("t")
     }
 
     pub fn get_matches() -> () {

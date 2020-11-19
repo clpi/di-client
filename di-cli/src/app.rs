@@ -1,6 +1,6 @@
+use atty::Stream;
 use ansi_colours::{AsRGB};
 use clap::App;
-
 
 use crate::{ config::Config, cmd, };
 
