@@ -1,8 +1,7 @@
-// TODO get nouns/verbs/etc. from dict automatically
 // ws = _{ " " | "\t" | "\r" | "\n" }
-WHITESPACE = { " "  | NEWLINE | "\t"}
-ws = { WHITESPACE  }
-// newsubexpr
+WHITESPACE = { " " }
+ws = { WHITESPACE | "\t" | "\n"}
+// new
 
 
 
@@ -69,51 +68,11 @@ term_punc = {
 }
 
 // TERMINALS
-word = @{ (pronoun | verb | preposition | adjectives | nouns | alphanumeric )+ } // @ or $?
-title_case_word = @{ !(". ") ~ alpha_upper ~ (alphanumeric)+ } // TODO check to make sure not start of sentence
-subj = ${ (pronoun_subj | title_case_word ) } // TODO make sure title case word not in set of words known, like "but", "to", "where", etc.
-obj = ${ ( pronoun_obj | title_case_word ) }
-
-// subexpr = { word }
-
+word = { !alphanumeric+ ~ (ws | punc) }
 expr_term = { ws+ | term_punc | EOI | newl+  }
-
-
-subexpr = { (subj? ~ (verb | word)+ ~ obj?) ~ expr_term }
-
-expr = { (subj? ~ (verb | word)+ ~ obj?) ~ expr_term }
-
-expr_question = { q_word? ~ subexpr+ ~ question_mark }
-expr_exclamation = { subexpr+ ~ exclamation }
-expr_comma_left = { subexpr+ ~  &comma }
-expr_comma_right = { &comma ~ subexpr+ }
-expr_period = { subexpr+ ~ &comma }
-expr_semicolon_left = { subexpr+ ~ &semicolon }
-expr_semicolon_right = { &semicolon ~ subexpr+ }
-expr_colon_left = { subexpr+ ~ &colon }
-expr_colon_right = { &colon ~ subexpr+ }
-expr_hyphen_left = { subexpr+ ~ &colon }
-expr_hyphen_right = { &colon ~ subexpr+ }
-expr_in_parens = { &left_paren ~ subexpr+ ~ &right_paren }
-expr_out_parens = { subexpr* ~ &left_paren ~ &ANY+ ~ &right_paren ~ subexpr*  }
-expr_all_types = {
-    ( expr_question | expr_exclamation  | expr_comma_left | expr_comma_right
-    | expr_period | expr_semicolon_left | expr_semicolon_right | expr_colon_left
-    | expr_colon_right | expr_hyphen_left | expr_hyphen_right | expr_in_parens
-    | expr_out_parens )* ~ expr_term
-}
-supexpr = { expr_all_types }
-
-
+// expr = { alphanumeric+ ~ expr_term }
+expr = { word+ ~ expr_term }
 full = { SOI ~ expr* ~ EOI }
-
-
-
-
-
-
-
-
 gen_chars_ws = { (gen_char ~ ws)* }
 gen_chars_ws_or = { ( gen_char | gen_chars_ws ) }
 
@@ -135,66 +94,9 @@ noncharacter = _{ !char ~ ANY }
 
 char_list = { !digit ~ char ~ (" " ~ char)+ }
 
-// STATE -----------------------------------------------------
-bool_true = @{ "true" | "True" }
-bool_false = @{ "false" | "False" }
-correct = @{ "correct" }
-incorrect = @{ "incorrect" }
-right = @{ "right" } // TODO distinguish between moral and correctness
-wrong = @{ "wrong" }
-bool_pos = @{ bool_true | correct | right }
-bool_neg = @{ bool_false | incorrect | wrong }
-bool = {bool_true | bool_false}
-
-good = @{ "good" }
-bad = @{ "bad" }
-evil = @{ "evil" }
-virtuous = @{ "virtuous" }
-courageous = @{ "courageous" }
-cowardly = @{ "cowardly" }
-strong = @{ "strong" }
-brave = @{ "brave" }
-weak = @{ "weak" }
-pathetic = @{ "pathetic" }
-adj_moral_pos = { good | virtuous  | strong | brave }
-adj_moral_neg = { bad | evil  | cowardly | weak | pathetic }
-adj_moral = {adj_moral_pos | adj_moral_neg}
-
-// Misc
-weird = @{"weird"}
-strange = @{"strange"}
-odd = @{"odd"}
-adj_misc = { weird | strange | odd }
-
-// Characteristics
-shy = @{"shy"}
-confident = @{"confident"}
-outgoing  = @{"outgoing"}
-patient  = @{"patient"}
-adj_character = { shy | confident  | outgoing | patient }
-
-ugly = @{"ugly"}
-pretty = @{"pretty"}
-adj_appearance = { ugly | pretty }
-
-// Moods
-happy = @{ "happy" }
-sad = @{ "sad" }
-angry = @{ "angry"}
-well = @{ "well" }
-unwell = @{"unwell"}
-adj_mood = { happy | sad | angry | well | unwell }
-adjectives = {
-    adj_mood | adj_appearance | adj_character | adj_misc | adj_moral
-    | bool
-}
-
-//
-
-nouns = { "thing" | "house" | "car" }
-
-
-
+bool_true = { "true" | "True" }
+bool_false = { "false" | "False" }
+boolean = _{ bool_true | bool_false }
 parens = @{
     "(" ~ ")"
 }
@@ -203,28 +105,24 @@ not = @{ "not" }
 or = @{ "or" }
 and = @{ "and" }
 
-pronoun = { pronoun_obj | pronoun_subj }
-pronoun_subj_sing = { i | he | she | you | it | that}
-pronoun_subj_plur = { they | we | it | those }
-pronoun_obj_sing = { me | him | her | you |  it | that}
-pronoun_obj_plur = { them | us | it | that | those}
-pronoun_subj = { i | he | she | they | we | you | it  | that }
-pronoun_obj = { me | him | her | them | us | you | it | those | that }
-i = @{^"i" }
-it = ${^"it"}
-that = ${^"that"}
-those = ${^"those"}
-me = ${^"me" }
-he = ${^"he" }
-him = ${^"him" }
-she = ${^"she" }
-her = ${^"her" }
-they = ${^"they" }
-them = ${^"them" }
-we = ${^"we" }
-us = ${^"us"}
-you = ${^"you"}
-// TODO also add super low prescendence WHO and WHOM
+pronoun = _{ i | me | he | him | she | her | they | them | we | us }
+pronoun_subj_sing = { i | he | she }
+pronoun_subj_plur = { they | we }
+pronoun_obj_sing = { me | him | her }
+pronoun_obj_plur = { them | us }
+pronoun_subj = _{ i | he | she | they | we }
+pronoun_obj = _{ me | him | her | them | us }
+i = ${"i" }
+me = ${"me" }
+he = ${"he" }
+him = ${"him" }
+she = ${"she" }
+her = ${"her" }
+they = ${"they" }
+them = ${"them" }
+we = ${"we" }
+us = ${"us"}
+you = ${"you"}
 
 // -------- SPELLED OUT NUMBERS TODO Find a way to do this programmatically
 one = ${"one" }
@@ -236,7 +134,7 @@ six = ${"six" }
 seven = ${"seven" }
 eight = ${"eight" }
 nine = ${"nine" }
-ten = {"ten" }
+ten = ${"ten" }
 spelled_number = { one | two | three | four | five | six | seven | eight | nine | ten }
 
 // infinitive: be, see, write, do
@@ -245,14 +143,14 @@ spelled_number = { one | two | three | four | five | six | seven | eight | nine 
 // past participle: been, done, seen
 // present participle: being, seing, writing, doing
 
-aux_verb_sing_pr = { is | am | has | have | can | shall | will }
-aux_verb_sing_pt = { was | had | could | should | would }
-aux_verb_plur_pr = { are | have | will | can | shall }
-aux_verb_plur_pt = { were | could | would | have | should }
-aux_verb_plur_fu = { will | can  | shall }
-aux_pt = { aux_verb_plur_pt | aux_verb_sing_pt }
-aux_pr = { aux_verb_sing_pr | aux_verb_plur_pr }
-aux = { aux_pt | aux_pr }
+aux_verb_sing_pr = _{ is | am | has | have | can | shall | will }
+aux_verb_sing_pt = _{ was | had | could | should | would }
+aux_verb_plur_pr = _{ are | have | will | can | shall }
+aux_verb_plur_pt = _{ were | could | would | have | should }
+aux_verb_plur_fu = _{ will | can  | shall }
+aux_pt = _{ aux_verb_plur_pt | aux_verb_sing_pt }
+aux_pr = _{ aux_verb_sing_pr | aux_verb_plur_pr }
+aux = _{ aux_pt | aux_pr }
 // 24 /modals
 
 // ------- to be -> Followed by adjective
@@ -304,28 +202,17 @@ hasbeen = { has ~ ws ~ been }
 
 a = @{ "a" }
 _as = @{ "as" }
+of = @{ "of" }
 
-verb = _{ aux | "go" | "look" | "see" }
+verb = _{ "go" | "look" | "see" }
 prog_verb = @{ verb ~ "ing" }
 
 expr_sing_pt = { pronoun ~ aux_verb_sing_pr ~ prog_verb }
 
-preposition = _{
-    to | at | before | after | over | of | under | above | below
-    | from
-}
+preposition = _{to | at }
 
 to = @{"to" }
 at = @{"at" }
-before = @{ "before" }
-after = @{ "after" }
-over = @{ "over" }
-of = @{ "of" }
-under = @{ "under" }
-through = @{ "under" }
-by = @{ "by" }
-above = @{ "above" }
-below = @{"below" }
 from = @{"from" }
 // ------------- COMPARE WORDS
 comp_like = @{ "like" }
@@ -422,8 +309,6 @@ weekend = _{ "sunday" | "saturday" }
 day = { weekday | weekend }
 
 templ = { SOI ~ ANY* ~ EOI }
-
-special_name = @{ title_case_word }
 
 
 // neg_mod = @{ ("'nt" | "nt" | (ws ~ not) ) }o

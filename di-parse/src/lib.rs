@@ -1,5 +1,4 @@
-#[macro_use]
-extern crate pest_derive;
+#[macro_use] extern crate pest_derive;
 
 use pest::Parser;
 
@@ -20,12 +19,12 @@ use pest::{
 };
 use parse::DivParser;
 
-fn main() {
+pub fn run() {
     let filename = env::args().nth(1)
         .unwrap_or("test.txt".to_string());
     let mut file = File::open(filename).expect("File doesn't exist");
     let mut txtbuf = String::new();
     file.read_to_string(&mut txtbuf).expect("Error reading file");
     println!("{:?}", txtbuf);
-    DivParser::get_pairs(txtbuf);
+    DivParser::get_pairs(txtbuf).unwrap();
 }
