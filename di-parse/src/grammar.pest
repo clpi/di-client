@@ -1,23 +1,21 @@
 // TODO get nouns/verbs/etc. from dict automatically
 // ws = _{ " " | "\t" | "\r" | "\n" }
-WHITESPACE = { " "  | NEWLINE | "\t"}
-ws = { WHITESPACE  }
-// newsubexpr
-
-
+WHITESPACE = _{ " "  | NEWLINE | "\t"}
+ws = _{ WHITESPACE  }
+// newsubexprj
 
 //
 
 // ---- SINGLE alphanumericsS
-alpha_lower = { ASCII_ALPHA_LOWER }
-alpha_upper = { ASCII_ALPHA_UPPER }
-alpha = { (alpha_lower | alpha_upper) }
-digit = { ASCII_DIGIT }
-nonzero_digit = { ASCII_NONZERO_DIGIT }
-alphanumeric = { alpha | digit }
+alpha_lower = _{ ASCII_ALPHA_LOWER }
+alpha_upper = _{ ASCII_ALPHA_UPPER }
+alpha = _{ (alpha_lower | alpha_upper) }
+digit = _{ ASCII_DIGIT }
+nonzero_digit = _{ ASCII_NONZERO_DIGIT }
+alphanumeric = _{ alpha | digit }
 
 number = { digit+ }
-alpha_word = { alpha+ }
+alpha_word = _{ alpha+ }
 
 word_obj = { number | alpha_word | ASCII_DIGIT } // ws | punc +???
 

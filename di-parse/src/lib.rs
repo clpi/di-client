@@ -7,6 +7,8 @@ pub mod parse;
 pub mod token;
 pub mod grammar;
 pub mod models;
+pub mod lex;
+pub mod ast;
 
 use std::{
     collections::HashMap,
@@ -17,7 +19,7 @@ use pest::{
     prec_climber::PrecClimber,
     RuleType,
 };
-use parse::DivParser;
+pub use parse::*;
 
 pub fn run() {
     let filename = env::args().nth(1)
