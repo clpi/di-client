@@ -1,14 +1,12 @@
 extern crate pest;
-
 use pest::{
     Parser, ParseResult,
     iterators::Pair
 };
 
 
-//#[grammar = "grammar.pest"]
-#[derive(Parser)]
-#[grammar = "grammar.pest"]
+#[derive(Parser, Debug)]
+#[grammar = "grammar/grammar.pest"]
 pub struct DivParser;
 
 impl DivParser {

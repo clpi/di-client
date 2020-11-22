@@ -1,0 +1,25 @@
+[workspace]
+members = [
+  "di-parse",
+  "di-core",
+]
+exclude = [
+  "di-edit",
+  "di-tui",
+  "di-cli",
+  "di-http"
+]
+
+[profile.dev]
+opt-level = 0     # Use slightly better optimizations
+overflow-checks = false
+debug = true
+debug-assertions = true
+codegen-units = 256
+
+
+[profile.release]
+opt-level = "z"    # Optimize for binary size, turn off loop vectorization
+debug = true
+lto = true
+panic = "abort"
