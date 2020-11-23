@@ -1,3 +1,8 @@
+// heuristic h1: If the head has an is-for feature, and a. the modifier matches one of the valuees of the is-for feature, then relation holds, or b. any of the hypernyms of the modifier match any of the values of the is-for feature, then holds *probably*
+// heuristic h1: if head has a location-of feature and if any values of the location-of feature have HAS-SUBJECT or HAS-OBJECT features and:
+//      a. the modifier matches any of the values of hte has-subject or has-object features then the relationship almost certainly hodlds
+//      b. any of the hypernyms of the modifier match any of the has-subject or has-object features, then the relationship probably holds
+// heuristic h3: if the headnoun has a HASOBJECT feature and a. the modifier matches any of the has-object values, then the relationship porbably holds, or b. any of the hypernyms of the modifier matches any of hte has-object values, the relationship might hold
 extern crate pest;
 use pest::{
     Parser, ParseResult,
@@ -5,7 +10,7 @@ use pest::{
 };
 
 
-#[derive(Parser, Debug)]
+#[derive(Parser)]
 #[grammar = "grammar/grammar.pest"]
 pub struct DivParser;
 
