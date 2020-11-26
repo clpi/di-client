@@ -6,7 +6,8 @@ use termion::{
     input::TermRead,
     raw::IntoRawMode,
     event::Key,
-    color, clear, cursor, style,
+    clear, cursor,
+    color,
 };
 
 fn main() {

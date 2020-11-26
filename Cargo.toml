@@ -4,7 +4,6 @@ members = [
   "di-core",
 ]
 exclude = [
-  "di-edit",
   "di-tui",
   "di-cli",
   "di-http"

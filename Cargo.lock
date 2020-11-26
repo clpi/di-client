@@ -223,6 +223,7 @@ dependencies = [
  "pest_derive",
  "pretty_assertions",
  "serde",
+ "serde_json",
 ]
 
 [[package]]
